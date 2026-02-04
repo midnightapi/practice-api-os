@@ -21,6 +21,10 @@ exports.getUserById = (req, res) => {
 exports.createUser = (req, res) => {
   const { name, email } = req.body;
 
+  if(user === null || email === null){
+    return res.json()
+  }
+
   // ❌ no validation
   const newUser = {
     id: users.length + 1, // ❌ unsafe id logic
