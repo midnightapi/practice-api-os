@@ -5,17 +5,21 @@ exports.getUsers = (req, res) => {
   res.send(users); // ❌ should use status code
 };
 
-// GET user by id
+// GET user by id fixed code 
 exports.getUserById = (req, res) => {
-  const id = req.params.id; // ❌ id is string
-  const user = users.find(u => u.id == id);
+  const id = Number(req.params.id);
+  const user = users.find(u => u.id === id);
 
   if (!user) {
-    res.send("User not found"); // ❌ wrong status + plain text
+    return res.status(404).json({
+      success: false,
+      message: "User not found"
+    });
   }
 
-  res.json(user); // ❌ still runs even if user not found
+  res.status(200).json(user);
 };
+
 
 // CREATE user
 exports.createUser = (req, res) => {
